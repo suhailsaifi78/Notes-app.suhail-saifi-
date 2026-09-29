@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6366f1">
+
+<meta name="description"
+content="Suhail Notes™ - A simple, private and beautiful notes app created by Suhail Saifi.">
+
+<title>Suhail Notes™ | Suhail Saifi</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#111827;
+    min-height:100vh;
+    transition:.3s ease;
+}
+
+/* DARK MODE */
+
+body.dark{
+    background:#111827;
+    color:#f9fafb;
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #e5e7eb;
+}
+
+.dark header{
+    background:rgba(17,24,39,.92);
+    border-color:#374151;
+}
+
+.top{
+    max-width:900px;
+    margin:auto;
+    padding:17px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:-.5px;
+}
+
+.logo span{
+    color:#6366f1;
+}
+
+.logo small{
+    font-size:10px;
+    vertical-align:top;
+    color:#6366f1;
+}
+
+.theme{
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    border:none;
+    background:#eef2ff;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.dark .theme{
+    background:#374151;
+}
+
+/* MAIN */
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:22px 20px;
+}
+
+/* SEARCH */
+
+.search{
+    width:100%;
+    padding:16px 18px;
+    border:1px solid #d1d5db;
+    border-radius:16px;
+    outline:none;
+    font-size:16px;
+    margin-bottom:22px;
+    background:white;
+}
+
+.search:focus{
+    border-color:#6366f1;
+    box-shadow:0 0 0 3px rgba(99,102,241,.12);
+}
+
+.dark .search{
+    background:#1f2937;
+    color:white;
+    border-color:#374151;
+}
+
+/* NOTES */
+
+.notes{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:17px;
+}
+
+.note{
+    background:white;
+    border-radius:20px;
+    padding:19px;
+    box-shadow:0 6px 25px rgba(0,0,0,.06);
+    position:relative;
+    min-height:170px;
+    transition:.2s;
+}
+
+.note:hover{
+    transform:translateY(-2px);
+}
+
+.dark .note{
+    background:#1f2937;
+}
+
+.note h3{
+    margin-bottom:10px;
+    padding-right:25px;
+    font-size:18px;
+}
+
+.note p{
+    color:#6b7280;
+    white-space:pre-wrap;
+    line-height:1.55;
+    word-break:break-word;
+}
+
+.dark .note p{
+    color:#d1d5db;
+}
+
+.note small{
+    display:block;
+    margin-top:13px;
+    color:#9ca3af;
+}
+
+.pin{
+    position:absolute;
+    right:17px;
+    top:17px;
+}
+
+/* NOTE BUTTONS */
+
+.note-buttons{
+    display:flex;
+    gap:7px;
+    margin-top:17px;
+    flex-wrap:wrap;
+}
+
+.note-buttons button{
+    padding:8px 10px;
+    border:none;
+    border-radius:10px;
+    background:#f3f4f6;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.note-buttons button:hover{
+    background:#e5e7eb;
+}
+
+.dark .note-buttons button{
+    background:#374151;
+    color:white;
+}
+
+.dark .note-buttons button:hover{
+    background:#4b5563;
+}
+
+/* ADD BUTTON */
+
+.add{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    border:none;
+    background:#6366f1;
+    color:white;
+    font-size:32px;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(99,102,241,.4);
+    z-index:40;
+}
+
+.add:hover{
+    transform:scale(1.06);
+}
+
+/* EMPTY */
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    color:#6b7280;
+    grid-column:1/-1;
+}
+
+.empty h2{
+    margin-bottom:8px;
+}
+
+/* CREATOR */
+
+.creator{
+    margin:38px auto 110px;
+    padding:25px;
+    max-width:550px;
+    text-align:center;
+    background:white;
+    border-radius:22px;
+    box-shadow:0 6px 25px rgba(0,0,0,.06);
+}
+
+.dark .creator{
+    background:#1f2937;
+}
+
+.creator-logo{
+    width:60px;
+    height:60px;
+    margin:0 auto 14px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#6366f1;
+    color:white;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.creator h3{
+    margin-bottom:17px;
+    font-size:21px;
+}
+
+.creator p{
+    margin:9px 0;
+    color:#6b7280;
+}
+
+.dark .creator p{
+    color:#d1d5db;
+}
+
+.creator a{
+    color:#6366f1;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.creator a:hover{
+    text-decoration:underline;
+}
+
+.copyright{
+    margin-top:18px;
+    font-size:13px;
+    color:#9ca3af;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.box{
+    width:100%;
+    max-width:520px;
+    background:white;
+    border-radius:22px;
+    padding:23px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.dark .box{
+    background:#1f2937;
+}
+
+.box h2{
+    margin-bottom:18px;
+}
+
+.box input,
+.box textarea{
+    width:100%;
+    padding:15px;
+    margin-bottom:14px;
+    border:1px solid #d1d5db;
+    border-radius:13px;
+    outline:none;
+    font-size:16px;
+}
+
+.box textarea{
+    min-height:190px;
+    resize:vertical;
+}
+
+.box input:focus,
+.box textarea:focus{
+    border-color:#6366f1;
+}
+
+.dark .box input,
+.dark .box textarea{
+    background:#111827;
+    color:white;
+    border-color:#374151;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+}
+
+.save{
+    flex:1;
+    padding:14px;
+    border:none;
+    background:#6366f1;
+    color:white;
+    border-radius:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cancel{
+    flex:1;
+    padding:14px;
+    border:none;
+    background:#e5e7eb;
+    border-radius:13px;
+    cursor:pointer;
+}
+
+.dark .cancel{
+    background:#374151;
+    color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .container{
+        padding:17px 14px;
+    }
+
+    .notes{
+        grid-template-columns:1fr;
+    }
+
+    .logo{
+        font-size:22px;
+    }
+
+    .add{
+        right:20px;
+        bottom:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="top">
+
+        <div class="logo">
+            Suhail<span>Notes</span><small>™</small>
+        </div>
+
+        <button
+            class="theme"
+            id="themeButton"
+            onclick="toggleTheme()">
+            🌙
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+    <input
+        class="search"
+        id="search"
+        type="search"
+        placeholder="🔍 Search your notes..."
+        oninput="displayNotes()"
+    >
+
+    <div id="notes" class="notes"></div>
+
+
+    <!-- CREATOR INFORMATION -->
+
+    <div class="creator">
+
+        <div class="creator-logo">
+            S
+        </div>
+
+        <h3>
+            Suhail Notes™
+        </h3>
+
+        <p>
+            <strong>Created by:</strong>
+            Suhail Saifi
+        </p>
+
+        <p>
+            📞
+            <a href="tel:9882140449">
+                9882140449
+            </a>
+        </p>
+
+        <p>
+            ✉️
+            <a href="mailto:s4850489@gmail.com">
+                s4850489@gmail.com
+            </a>
+        </p>
+
+        <div class="copyright">
+            © 2026 Suhail Saifi™. All Rights Reserved.
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ADD NOTE BUTTON -->
+
+<button
+    class="add"
+    onclick="openModal()">
+    +
+</button>
+
+
+<!-- NOTE MODAL -->
+
+<div
+    class="modal"
+    id="modal">
+
+    <div class="box">
+
+        <h2 id="modalTitle">
+            New Note
+        </h2>
+
+        <input
+            id="title"
+            type="text"
+            placeholder="Note title"
+        >
+
+        <textarea
+            id="content"
+            placeholder="Write your note here..."
+        ></textarea>
+
+        <div class="actions">
+
+            <button
+                class="cancel"
+                onclick="closeModal()">
+                Cancel
+            </button>
+
+            <button
+                class="save"
+                onclick="saveNote()">
+                Save Note
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* NOTES DATA */
+
+let notes =
+    JSON.parse(localStorage.getItem("suhailNotes")) || [];
+
+let editingId = null;
+
+
+/* OPEN MODAL */
+
+function openModal(id = null){
+
+    editingId = id;
+
+    document
+        .getElementById("modal")
+        .classList.add("active");
+
+    if(id){
+
+        const note =
+            notes.find(n => n.id === id);
+
+        if(!note) return;
+
+        document
+            .getElementById("modalTitle")
+            .innerText = "Edit Note";
+
+        document
+            .getElementById("title")
+            .value = note.title;
+
+        document
+            .getElementById("content")
+            .value = note.content;
+
+    }else{
+
+        document
+            .getElementById("modalTitle")
+            .innerText = "New Note";
+
+        document
+            .getElementById("title")
+            .value = "";
+
+        document
+            .getElementById("content")
+            .value = "";
+
+    }
+
+    setTimeout(() => {
+
+        document
+            .getElementById("title")
+            .focus();
+
+    },100);
+
+}
+
+
+/* CLOSE MODAL */
+
+function closeModal(){
+
+    document
+        .getElementById("modal")
+        .classList.remove("active");
+
+}
+
+
+/* SAVE NOTE */
+
+function saveNote(){
+
+    const title =
+        document
+            .getElementById("title")
+            .value
+            .trim();
+
+    const content =
+        document
+            .getElementById("content")
+            .value
+            .trim();
+
+    if(!title && !content){
+
+        alert("Please write something first.");
+
+        return;
+    }
+
+
+    if(editingId){
+
+        const note =
+            notes.find(n => n.id === editingId);
+
+        if(note){
+
+            note.title =
+                title || "Untitled";
+
+            note.content =
+                content;
+
+        }
+
+    }else{
+
+        notes.unshift({
+
+            id:Date.now(),
+
+            title:
+                title || "Untitled",
+
+            content:
+                content,
+
+            pinned:false,
+
+            date:
+                new Date().toLocaleDateString()
+
+        });
+
+    }
+
+
+    saveData();
+
+    closeModal();
+
+    displayNotes();
+
+}
+
+
+/* SAVE LOCAL DATA */
+
+function saveData(){
+
+    localStorage.setItem(
+        "suhailNotes",
+        JSON.stringify(notes)
+    );
+
+}
+
+
+/* DISPLAY NOTES */
+
+function displayNotes(){
+
+    const container =
+        document.getElementById("notes");
+
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    let filtered =
+        notes.filter(note =>
+
+            note.title
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            note.content
+                .toLowerCase()
+                .includes(search)
+
+        );
+
+
+    /* PINNED NOTES FIRST */
+
+    filtered.sort(
+        (a,b) => b.pinned - a.pinned
+    );
+
+
+    if(filtered.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <h2>
+                    No notes found
+                </h2>
+
+                <p>
+                    Create your first note using +
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        filtered.map(note => `
+
+        <div class="note">
+
+            <div class="pin">
+
+                ${note.pinned ? "📌" : ""}
+
+            </div>
+
+
+            <h3>
+                ${escapeHTML(note.title)}
+            </h3>
+
+
+            <p>
+                ${escapeHTML(note.content)}
+            </p>
+
+
+            <small>
+                ${note.date}
+            </small>
+
+
+            <div class="note-buttons">
+
+                <button
+                    onclick="openModal(${note.id})"
+                    title="Edit">
+                    ✏️
+                </button>
+
+
+                <button
+                    onclick="pinNote(${note.id})"
+                    title="Pin">
+                    📌
+                </button>
+
+
+                <button
+                    onclick="copyNote(${note.id})"
+                    title="Copy">
+                    📋
+                </button>
+
+
+                <button
+                    onclick="shareNote(${note.id})"
+                    title="Share">
+                    📤
+                </button>
+
+
+                <button
+                    onclick="deleteNote(${note.id})"
+                    title="Delete">
+                    🗑️
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* DELETE NOTE */
+
+function deleteNote(id){
+
+    const confirmDelete =
+        confirm("Delete this note?");
+
+    if(!confirmDelete) return;
+
+    notes =
+        notes.filter(
+            note => note.id !== id
+        );
+
+    saveData();
+
+    displayNotes();
+
+}
+
+
+/* PIN NOTE */
+
+function pinNote(id){
+
+    const note =
+        notes.find(n => n.id === id);
+
+    if(!note) return;
+
+    note.pinned =
+        !note.pinned;
+
+    saveData();
+
+    displayNotes();
+
+}
+
+
+/* COPY NOTE */
+
+function copyNote(id){
+
+    const note =
+        notes.find(n => n.id === id);
+
+    if(!note) return;
+
+    const text =
+        note.title +
+        "\n\n" +
+        note.content;
+
+
+    navigator.clipboard
+        .writeText(text)
+        .then(() => {
+
+            alert("Note copied!");
+
+        })
+        .catch(() => {
+
+            alert("Copy failed.");
+
+        });
+
+}
+
+
+/* SHARE NOTE */
+
+function shareNote(id){
+
+    const note =
+        notes.find(n => n.id === id);
+
+    if(!note) return;
+
+    const text =
+        note.title +
+        "\n\n" +
+        note.content;
+
+
+    if(navigator.share){
+
+        navigator.share({
+
+            title:note.title,
+
+            text:text
+
+        });
+
+    }else{
+
+        navigator.clipboard
+            .writeText(text);
+
+        alert(
+            "Sharing is not supported. Note copied instead."
+        );
+
+    }
+
+}
+
+
+/* DARK MODE */
+
+function toggleTheme(){
+
+    document
+        .body
+        .classList
+        .toggle("dark");
+
+
+    const dark =
+        document
+            .body
+            .classList
+            .contains("dark");
+
+
+    localStorage.setItem(
+        "suhailDarkMode",
+        dark
+    );
+
+
+    document
+        .getElementById("themeButton")
+        .innerText =
+        dark ? "☀️" : "🌙";
+
+}
+
+
+/* LOAD DARK MODE */
+
+if(
+    localStorage.getItem("suhailDarkMode")
+    === "true"
+){
+
+    document
+        .body
+        .classList
+        .add("dark");
+
+    document
+        .getElementById("themeButton")
+        .innerText = "☀️";
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replaceAll("&","&amp;")
+
+        .replaceAll("<","&lt;")
+
+        .replaceAll(">","&gt;")
+
+        .replaceAll('"',"&quot;")
+
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+
+document
+    .getElementById("modal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(event.target === this){
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+/* KEYBOARD SHORTCUT */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* START APP */
+
+displayNotes();
+
+</script>
+
+</body>
+</html>
